@@ -1,3 +1,8 @@
 ﻿Chapter 1: Working with data.
 
 In this project we're using EF Code First Technique
+	1) Create a class which represents the entity that u're gonna insert into DB
+	2) Add the Dataset for the newly created class in ApplicationDbContext
+	3) Run add-migration <migration name>
+	4) Run update-database. Done
+
