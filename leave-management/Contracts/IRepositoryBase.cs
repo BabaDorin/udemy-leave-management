@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace leave_management.Contracts
 {
-    interface IRepositoryBase<T> where T : class
+    public interface IRepositoryBase<T> where T : class
     {
         // Interface which implements CRUD
         // Every domain class should offer CRUD operations
