@@ -1,4 +1,5 @@
 ﻿using leave_management.Contracts;
+using leave_management.Data;
 using leave_management.Data.Migrations;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,13 @@ namespace leave_management.Repository
 {
     public class LeaveHistoryRepository : ILeaveTypeRepository
     {
+        private readonly ApplicationDbContext _db;
+
+        public LeaveHistoryRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
         public bool Create(LeaveType entity)
         {
             throw new NotImplementedException();
