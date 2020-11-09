@@ -6,3 +6,7 @@ In this project we're using EF Code First Technique
 	3) Run add-migration <migration name>
 	4) Run update-database. Done
 
+According to current repository pattern, when adding a new table you have to
+	1) Create the Interface which derives from IRepositoryBase for that specific table
+	2) Add the table to repositories (Class which implements the previously created interface)
+	3) Add reference for the new table in startup file (service.addScoped);
