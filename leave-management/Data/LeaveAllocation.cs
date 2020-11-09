@@ -1,4 +1,5 @@
 ﻿using leave_management.Data.Migrations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,8 +10,8 @@ namespace leave_management.Data
 {
     public class LeaveAllocation
     {
-        [Key]
         public int Id { get; set; }
+        [Required]
         public int NumberOfDays { get; set; }
         public DateTime DateCreated { get; set; }
 
@@ -19,5 +20,8 @@ namespace leave_management.Data
         
         public LeaveType LeaveType{ get; set; }
         public int LeaveTypeId { get; set; }
+
+        public IEnumerable<SelectListItem> Employees { get; set; }
+        public IEnumerable<SelectListItem> LeaveTypes { get; set; }
     }
 }
