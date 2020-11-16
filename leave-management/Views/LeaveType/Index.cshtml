@@ -34,7 +34,6 @@
                     @Html.DisplayFor(modelItem => item.DateCreated)
                 </td>
                 <td>
-                    @*Add icons to buttons*@
                     <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id"><i class="fa fa-pencil"></i></a> 
                     <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id"><i class="fa fa-info-circle"></i></a> 
                     <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete this record?')"><i class="fa fa-trash"></i></a>
