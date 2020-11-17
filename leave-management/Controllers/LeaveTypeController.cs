@@ -51,7 +51,7 @@ namespace leave_management.Controllers
             return View();
         }
 
-        // POST: LeaveType/Create
+        // POST: LeaveType/CreateSSS
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(LeaveTypeVM model)
