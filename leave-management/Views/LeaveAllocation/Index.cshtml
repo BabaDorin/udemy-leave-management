@@ -9,12 +9,15 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<h3>Number of modifications: @Model.NumberUpdated</h3>
+
+<table id="tblData" class="table">
     <thead>
         <tr>
             <th>
                 Leave Types
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -25,10 +28,12 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Allocate To Employees", "SetLeave", new { id = item.Id }) |
+                    @*@Html.ActionLink("Allocate To Employees", "SetLeave", new { id = item.Id }) |*@
+                    <a class="btn btn-outline-success" asp-action="SetLeave" asp-route-id="@item.Id">
+                        <i class="fade fa-pencil"></i> Allocate to Employees
+                    </a>
                 </td>
             </tr>
         }
     </tbody>
-    <h3>Number of modifications: @Model.NumberUpdated</h3>
 </table>
