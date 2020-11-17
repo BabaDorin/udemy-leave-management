@@ -36,7 +36,7 @@ namespace leave_management
                     Configuration.GetConnectionString("DefaultConnection")));
             
             // Add references for Repository and Contracts to Startup file
-            services.AddScoped<ILeaveHistoryRepository, LeaveHistoryRepository>();
+            services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
             services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
 
