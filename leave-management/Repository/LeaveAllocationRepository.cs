@@ -11,7 +11,7 @@ namespace leave_management.Repository
     public class LeaveAllocationRepository : ILeaveAllocationRepository
     {
         private readonly ApplicationDbContext _db;
-            
+
         public LeaveAllocationRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -37,12 +37,18 @@ namespace leave_management.Repository
 
         public ICollection<LeaveAllocation> FindAll()
         {
-            return _db.LeaveAllocations.Include(q => q.LeaveType).ToList();
+            return _db.LeaveAllocations.Include(q => q.LeaveType)
+                .Include(q => q.LeaveType)
+                .Include(q => q.Employee)
+                .ToList();
         }
 
         public LeaveAllocation FindById(int id)
         {
-            var leaveAllocation = _db.LeaveAllocations.Find(id);
+            var leaveAllocation = _db.LeaveAllocations
+                .Include(q => q.LeaveType)
+                .Include(q => q.Employee)
+                .FirstOrDefault(q => q.Id == id);
             return leaveAllocation;
         }
 
