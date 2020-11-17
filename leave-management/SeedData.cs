@@ -18,7 +18,7 @@ namespace leave_management
         {
             if(userManager.FindByNameAsync("Admin").Result == null)
             {
-                var user = new IdentityUser { UserName = "admin", Email = "admin@localhost" };
+                var user = new IdentityUser { UserName = "admin@localhost", Email = "admin@localhost" };
                 var result = userManager.CreateAsync(user, "Passw0rd!!").Result;
                 if (result.Succeeded)
                 {
