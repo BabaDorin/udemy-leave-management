@@ -1,5 +1,6 @@
 ﻿using leave_management.Data;
 using leave_management.Data.Migrations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -42,5 +43,21 @@ namespace leave_management.Models
         public int PendingRequests { get; set; }
        
         public List<LeaveRequestVM> LeaveRequests { get; set; }
+    }
+
+    public class CreateLeaveRequestVM
+    {
+        [Display(Name = "Start Date")]
+        [Required]
+        public string StartDate { get; set; }
+
+        [Display(Name = "End Date")]
+        [Required]
+        public string EndDate { get; set; }
+
+        public IEnumerable<SelectListItem> LeaveTypes { get; set; }
+
+        [Display(Name = "Leave Type")]
+        public int LeaveTypeId { get; set; }
     }
 }

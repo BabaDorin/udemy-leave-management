@@ -87,7 +87,7 @@ namespace leave_management.Areas.Identity.Pages.Account
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     Email = Input.Email,
-                    UserName = Input.Email,
+                    UserName = Input.Email
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
