@@ -62,7 +62,36 @@ namespace leave_management.Controllers
         // GET: LeaveRequest/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var leaveRequest = _leaveRequestRepo.FindById(id);
+            var model = _mapper.Map<LeaveRequestVM>(leaveRequest);
+
+            return View(model);
+        }
+
+        public ActionResult ApproveRequest(int id, bool flag)
+        {
+            try
+            {
+                var leaveRequest = _leaveRequestRepo.FindById(id);
+                var employeeId = leaveRequest.RequestingEmployeeId;
+                var allocation = _leaveAllocationRepo.GetLeaveAllocationByEmployeeAndType(employeeId, leaveRequest.LeaveTypeId);
+                var daysRequeste = (int)(leaveRequest.EndDate.Date - leaveRequest.StartDate.Date).TotalDays;
+                allocation.NumberOfDays -= daysRequeste;
+
+                leaveRequest.Approved = flag;
+                var user = _userManager.GetUserAsync(User).Result;
+                leaveRequest.ApprovedById = user.Id;
+                leaveRequest.DateActioned = DateTime.Now;
+
+                _leaveRequestRepo.Update(leaveRequest);
+                _leaveAllocationRepo.Update(allocation);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // GET: LeaveRequest/Create
