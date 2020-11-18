@@ -130,7 +130,6 @@ namespace leave_management.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
                 var leaveType = _repo.FindById(id);
                 if (leaveType == null)
                     return NotFound();

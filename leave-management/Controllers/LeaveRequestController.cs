@@ -94,6 +94,21 @@ namespace leave_management.Controllers
             }
         }
 
+        public ActionResult MyLeave()
+        {
+            var currentUser = _userManager.GetUserAsync(User).Result;
+            var myLeaveAllocations = _mapper.Map<List<LeaveAllocationVM>>(_leaveAllocationRepo.GetLeaveAllocationsByEmployee(currentUser.Id));
+            var myLeaveRequests = _mapper.Map<List<LeaveRequestVM>>(_leaveRequestRepo.GetLeaveRequestsByEmployee(currentUser.Id));
+
+            EmployeeLeaveRequestsViewVM myLeave = new EmployeeLeaveRequestsViewVM
+            {
+                LeaveAllocations = myLeaveAllocations,
+                LeaveRequests = myLeaveRequests
+            };
+
+            return View(myLeave);
+        }
+
         // GET: LeaveRequest/Create
         public ActionResult Create()
         {
@@ -152,7 +167,8 @@ namespace leave_management.Controllers
                     Approved = null,
                     DateRequested = DateTime.Now,
                     DateActioned = DateTime.Now,
-                    LeaveTypeId = model.LeaveTypeId
+                    LeaveTypeId = model.LeaveTypeId,
+                    Comments = model.Comments
                 };
 
                 var leaveRequest = _mapper.Map<LeaveRequest>(leaveRequestModel);
@@ -164,7 +180,7 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
-                return RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction(nameof(MyLeave));
             }
             catch(Exception ex)
             {
@@ -194,6 +210,22 @@ namespace leave_management.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult CancelRequest(int id)
+        {
+            try
+            {
+                var leaveRequest = _leaveRequestRepo.FindById(id);
+                leaveRequest.Canceled = true;
+                _leaveRequestRepo.Update(leaveRequest);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong. The request has not been canceled");
+            }
+             
+            return RedirectToAction(nameof(MyLeave));
         }
 
         // GET: LeaveRequest/Delete/5

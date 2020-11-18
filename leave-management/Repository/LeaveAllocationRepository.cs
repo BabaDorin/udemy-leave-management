@@ -44,6 +44,8 @@ namespace leave_management.Repository
                 .ToList();
         }
 
+
+
         public LeaveAllocation FindById(int id)
         {
             var leaveAllocation = _db.LeaveAllocations
