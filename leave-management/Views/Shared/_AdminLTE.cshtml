@@ -209,26 +209,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a asp-controller="LeaveType" asp-action="Index" class="nav-link active">
-                                                <i class="far fa-circle nav-icon"></i>
+                                            <a asp-controller="LeaveType" asp-action="Index" class="nav-link">
+                                                <i class="nav-icon fas fa-list"></i>
                                                 <p>Leave Types</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a asp-controller="LeaveAllocation" asp-action="Index" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="nav-icon fas fa-user-plus"></i>
                                                 <p>Leave Allocations</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a asp-controller="LeaveAllocation" asp-action="ListEmployees" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="nav-icon fas fa-cogs"></i>
                                                 <p>Employees</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a asp-controller="LeaveRequest" asp-action="Index" class="nav-link">
-                                                <i class="far fa-circle nav-icon"></i>
+                                                <i class="nav-icon fas fa-users"></i>
                                                 <p>Leave Requests</p>
                                             </a>
                                         </li>
@@ -245,7 +245,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            @RenderBody()
+            <div class="content-header">
+                <div class="container-fluid">
+
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
         </div>
         <!-- /.content-wrapper -->
         <!-- Control Sidebar -->

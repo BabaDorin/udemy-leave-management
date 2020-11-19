@@ -25,7 +25,7 @@ namespace leave_management.Models
 
         public bool? Approved { get; set; }
         public bool Canceled { get; set; }
-        public Employee ApprovedBy { get; set; }
+        public EmployeeVM ApprovedBy { get; set; }
         public string ApprovedById { get; set; }
         public string Comments { get; set; }
     }
