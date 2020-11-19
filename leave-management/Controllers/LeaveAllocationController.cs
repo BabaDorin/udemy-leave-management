@@ -36,10 +36,10 @@ namespace leave_management.Controllers
         }
 
         // GET: LeaveAllocation
-        public ActionResult Index(int? numberUpdated)
+        public async Task<ActionResult> Index(int? numberUpdated)
         {
-            var leaveTypes = _leaveRepo.FindAll().ToList();
-            var mappedLeaveTypes = _mapper.Map<List<LeaveType>, List<LeaveTypeVM>>(leaveTypes);
+            var leaveTypes = await _leaveRepo.FindAll();
+            var mappedLeaveTypes = _mapper.Map<List<LeaveType>, List<LeaveTypeVM>>(leaveTypes.ToList());
             var model = new CreateLeaveAllocationVM
             {
                 LeaveTypes = mappedLeaveTypes,
@@ -49,14 +49,14 @@ namespace leave_management.Controllers
             return View(model);
         }
 
-        public ActionResult SetLeave(int id)
+        public async Task<ActionResult> SetLeave(int id)
         {
-            var leaveType = _leaveRepo.FindById(id);
-            var employees = _userManager.GetUsersInRoleAsync("Employee").Result;
+            var leaveType = await _leaveRepo.FindById(id);
+            var employees = await _userManager.GetUsersInRoleAsync("Employee");
             int nrUpdated = 0;
             foreach (var emp in employees)
             {
-                if (_leaveAllocationRepo.CheckAllocation(id, emp.Id))
+                if (await _leaveAllocationRepo.CheckAllocation(id, emp.Id))
                     continue;
 
                 var allocation = new LeaveAllocationVM
@@ -69,7 +69,7 @@ namespace leave_management.Controllers
                 };
 
                 var leaveAllocation = _mapper.Map<LeaveAllocation>(allocation);
-                _leaveAllocationRepo.Create(leaveAllocation);
+                await _leaveAllocationRepo.Create(leaveAllocation);
                 nrUpdated++;
             }
             return RedirectToAction(nameof(Index), new { numberUpdated = nrUpdated});
@@ -131,7 +131,7 @@ namespace leave_management.Controllers
         // POST: LeaveAllocation/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditLeaveAllocationVM model)
+        public async Task<ActionResult> Edit(EditLeaveAllocationVM model)
         {
             try
             {
@@ -140,9 +140,9 @@ namespace leave_management.Controllers
                 {
                     return View(model);
                 }
-                var record = _leaveAllocationRepo.FindById(model.Id);
+                var record = await _leaveAllocationRepo.FindById(model.Id);
                 record.NumberOfDays = model.NumberOfDays;
-                var isSuccess = _leaveAllocationRepo.Update(record);
+                var isSuccess = await _leaveAllocationRepo.Update(record);
 
                 if (!isSuccess)
                 {
