@@ -109,7 +109,7 @@ namespace leave_management.Controllers
             return View(myLeave);
         }
 
-        // GET: LeaveRequest/Create
+        // GET: LeaveRequest/Create 
         public ActionResult Create()
         {
             var leaveTypes = _leaveTypeRepo.FindAll();
